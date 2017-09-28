@@ -12,9 +12,11 @@ Iy = 0.002985236;
 Iz = 0.00480374;
 g = 9.81;
 
-
+% The model is NOT time dependent
 in.time = [0];
-in.signals(1).values = [m*g, 0, 0, 0];
+% These are the input values; u = [T, tau_x, tau_y, tau_z]
+in.signals(1).values = [m*g*1.1, 0, 0.1, 0.01];
+% There are FOUR input values = # dimensions
 in.signals(1).dimensions = 4;
 
 x0 = [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0];
@@ -64,13 +66,8 @@ for i = 1:size(t,1)
     refreshdata
 end
 
-figure();
-subplot(2,2,1);
-plot(t,x(1));
-subplot(2,2,2);
-plot(t,x(2));
-subplot(2,2,3);
-plot(t,x(3));
+% Finalize simulation
+showData(x,t);
 
 % Draw the quadcopter in the figure according to the current state.
 function drawquad(x,y,z,phi,theta,psi, p)
@@ -81,3 +78,6 @@ function drawquad(x,y,z,phi,theta,psi, p)
     set(p, 'Matrix', Mov*rx*ry*rz);
     drawnow
 end
+
+
+

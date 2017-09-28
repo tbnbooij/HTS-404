@@ -11,21 +11,21 @@ Ix = 0.002237568;
 Iy = 0.002985236;
 Iz = 0.00480374;
 g = 9.81;
-running_time = 1; % seconds
 
-
-in.time = [0,0.2,running_time];
-in.signals(1).values = [m*g, 0.1, 0, 0;m*g, -0.1, 0, 0; 0,0,0,0];
+% The model is NOT time dependent
+in.time = [0];
+% These are the input values; u = [T, tau_x, tau_y, tau_z]
+in.signals(1).values = [m*g, 0, 0, 0];
+% There are FOUR input values = # dimensions
 in.signals(1).dimensions = 4;
 
 x0 = [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0];
 
 % Initialization of the simulation 
-[t,x,y] = sim('honors_drone',running_time,[], in); 
+[t,x,y] = sim('honors_drone',10,[], in); 
 
 % Create a figure window and clear its current contents
 figure('Name', 'Drone Simulation', 'NumberTitle', 'off'),clf;
-subplot(2,2,1);
 time = 1:size(t,1);
 % Set axis limits
 ax = axes('XLim',[-6 6],'YLim',[-6 6],'ZLim',[-100 100]);
@@ -58,20 +58,13 @@ h(8) = line('xData', -len + r*cos(ang), 'yData', -len + r*sin(ang), 'zData', ang
 p = hgtransform('Parent', ax);
 set(h, 'Parent', p);
 
-figure
-
 % Main loop
 for i = 1:size(t,1)
     % Draw the current state of the quadcopter
     drawquad(y(i,1), y(i,2), -y(i,3), y(i,7), y(i,8), y(i,9), p);
     % Wait a timestep
-    if i == 1
-        pause(t(2));
-    else
-        pause(t(i)-t(i-1));
-    end
+    refreshdata
 end
-
 
 % Draw the quadcopter in the figure according to the current state.
 function drawquad(x,y,z,phi,theta,psi, p)
@@ -82,4 +75,6 @@ function drawquad(x,y,z,phi,theta,psi, p)
     set(p, 'Matrix', Mov*rx*ry*rz);
     drawnow
 end
+
+% Finalize simulation
 

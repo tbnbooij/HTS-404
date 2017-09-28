@@ -12,15 +12,20 @@ Iy = 0.002985236;
 Iz = 0.00480374;
 g = 9.81;
 
+% The time the model has run
+running_time = 10;
 
+% The model is NOT time dependent
 in.time = [0];
+% These are the input values; u = [T, tau_x, tau_y, tau_z]
 in.signals(1).values = [m*g, 0, 0, 0];
+% There are FOUR input values = # dimensions
 in.signals(1).dimensions = 4;
 
 x0 = [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0];
 
 % Initialization of the simulation 
-[t,x,y] = sim('honors_drone',10,[], in); 
+[t,x,y] = sim('honors_drone',running_time,[], in); 
 
 % Create a figure window and clear its current contents
 figure('Name', 'Drone Simulation', 'NumberTitle', 'off'),clf;
@@ -51,6 +56,8 @@ h(5) = line('xData', len + r*cos(ang), 'yData', len + r*sin(ang), 'zData', ang*0
 h(6) = line('xData', -len + r*cos(ang), 'yData', len + r*sin(ang), 'zData', ang*0);
 h(7) = line('xData', len + r*cos(ang), 'yData', -len + r*sin(ang), 'zData', ang*0);
 h(8) = line('xData', -len + r*cos(ang), 'yData', -len + r*sin(ang), 'zData', ang*0);
+% Create front line
+h(9) = line([len -len],[-len -len],[0 0]);
 % Store this quadcopter in the object 'p'
 % 'p' can be transformed with respect to the defined axes
 p = hgtransform('Parent', ax);
@@ -64,20 +71,18 @@ for i = 1:size(t,1)
     refreshdata
 end
 
-figure();
-subplot(2,2,1);
-plot(t,x(1));
-subplot(2,2,2);
-plot(t,x(2));
-subplot(2,2,3);
-plot(t,x(3));
+% Show the plots
+showData(x,t);
 
 % Draw the quadcopter in the figure according to the current state.
 function drawquad(x,y,z,phi,theta,psi, p)
-    Mov = makehgtform('translate', x,y,z);
+    Mov = makehgtform('translate', x, y, z);
     rx = makehgtform('xrotate', phi);
     ry = makehgtform('yrotate', theta);
     rz = makehgtform('zrotate', psi);
     set(p, 'Matrix', Mov*rx*ry*rz);
     drawnow
 end
+
+
+

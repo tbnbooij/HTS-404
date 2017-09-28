@@ -5,8 +5,8 @@ Iy = 0.002985236;
 Iz = 0.00480374;
 g = 9.81;
 
-in.time = [0,0.2,10];
-in.signals(1).values = [m*g, 0.1, 0, 0;m*g, -0.1, 0, 0; 0,0,0,0];
+in.time = [0];
+in.signals(1).values = [m*g, 0, 0, 0];
 in.signals(1).dimensions = 4;
 
 x0 = [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0];
@@ -31,14 +31,15 @@ view(3);
 %drawquad(y(1,1),y(1,2),y(1,3), y(1,7), y(1,8), y(1,9), p);
 %drawquad(0,0,0,1,0,0,p);
 drawquad(y(1,1), y(1,2), -y(1,3), y(1,7), y(1,8), y(1,9), p);
-pause(t(2));
-for i = 2:size(t,1)
-    drawquad(y(i,1), y(i,2), -y(i,3), y(i,7), y(i,8), y(i,9), p);
-    pause(t(i)-t(i-1))
-end
+refreshdata;
 xlabel('x');
 ylabel('y');
 zlabel('z');
+for i = 2:size(t,1)
+    drawquad(y(i,1), y(i,2), -y(i,3), y(i,7), y(i,8), y(i,9), p);
+    refreshdata;
+end
+
 
 function drawquad(x,y,z,phi,theta,psi, p)
 Mov = makehgtform('translate', x,y,z);

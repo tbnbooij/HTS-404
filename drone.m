@@ -233,7 +233,7 @@ function sys=mdlDerivatives(t,x,u, m, g, Ix, Iy, Iz)
     dr = ((Ix-Iy)/Iz)*p*q + tau_z/Iz;
     
     % Return the derivatives of the state parameters
-    sys = [vx, vy, vz, dvx, dvy, dvz,dphi, dtheta, dpsi, dp, dq, dr];
+    sys = [vx, vy, vz, dvx, dvy, dvz, dphi, dtheta, dpsi, dp, dq, dr];
 
 % end mdlDerivatives
 

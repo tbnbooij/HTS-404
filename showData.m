@@ -1,10 +1,10 @@
 function showData(x,t)
     x_pos = x(:,1);
     y_pos = x(:,2);
-    z_pos = x(:,3);
+    z_pos = -x(:,3);
     Vx = x(:,4);
     Vy = x(:,5);
-    Vz = x(:,6);
+    Vz = -x(:,6);
     phi = x(:,7);
     theta = x(:,8);
     psi = x(:,9);

@@ -12,7 +12,7 @@ Iy = 0.002985236;
 Iz = 0.00480374;
 g = 9.81;
 
-% The time the model has run
+% The timespan the model has to run
 running_time = 10;
 
 % At t = 0; we add the following inputs
@@ -61,23 +61,22 @@ h(9) = line([len -len],[-len -len],[0 0]);
 % Store this quadcopter in the object 'p'
 % 'p' can be transformed with respect to the defined axes
 p = hgtransform('Parent', ax);
-
-
+set(h, 'Parent', p);
 grid on
-for i=1:9
-    set(h(i), 'Parent', p);
-end
+
 % Main loop
 for i = 1:size(t,1)
     % Draw the current state of the quadcopter
     drawquad(y(i,1), y(i,2), -y(i,3), y(i,7), y(i,8), y(i,9), p);
     % Wait a timestep
     refreshdata
+    % Update title of plot
+    title(strcat(strcat('Quadcopter Simulation (', num2str(t(i))),' sec)'));
 end
 
-
 % Show the plots
-%showData(x,t);
+showData(x,t);
+showInput(input);
 
 % Draw the quadcopter in the figure according to the current state.
 function drawquad(x,y,z,phi,theta,psi, p)

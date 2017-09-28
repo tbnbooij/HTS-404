@@ -15,10 +15,10 @@ g = 9.81;
 % The time the model has run
 running_time = 10;
 
-% The model is NOT time dependent
+% At t = 0; we add the following inputs
 in.time = [0];
 % These are the input values; u = [T, tau_x, tau_y, tau_z]
-in.signals(1).values = [m*g, 0, 0, 0];
+in.signals(1).values = [m*g, 0, 0,0.0001];
 % There are FOUR input values = # dimensions
 in.signals(1).dimensions = 4;
 
@@ -83,6 +83,5 @@ function drawquad(x,y,z,phi,theta,psi, p)
     set(p, 'Matrix', Mov*rx*ry*rz);
     drawnow
 end
-
 
 

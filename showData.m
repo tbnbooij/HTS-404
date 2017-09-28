@@ -1,17 +1,10 @@
 function showData(x,t)
     x_pos = x(:,1);
     y_pos = x(:,2);
-<<<<<<< HEAD
     z_pos = x(:,3);
     Vx = x(:,4);
     Vy = x(:,5);
     Vz = x(:,6);
-=======
-    z_pos = -x(:,3);
-    Vx = x(:,4);
-    Vy = x(:,5);
-    Vz = -x(:,6);
->>>>>>> af40115ed9981ac54e47acd55d4d616faf580010
     phi = x(:,7);
     theta = x(:,8);
     psi = x(:,9);

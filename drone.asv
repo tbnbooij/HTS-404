@@ -228,12 +228,10 @@ function sys=mdlDerivatives(t,x,u, m, g, Ix, Iy, Iz)
     dphi = p + sin(phi)*tan(theta)*q + cos(phi)*tan(theta)*r;
     dtheta = cos(phi)*q-sin(phi)*r;
     dpsi = (sin(phi)/cos(theta))*q + (cos(phi)/cos(theta))*r;
-    dp = ((Iy-Iz)/Ix)*r*q + tau_x/Ix;
-    dq = ((Iz-Ix)/Iy)*p*r + tau_y/Iy;
-    dr = ((Ix-Iy)/Iz)*p*q + tau_z/Iz;
-    
-    % Return the derivatives of the state parameters
-    sys = [vx, vy, vz, dvx, dvy, dvz,dphi, dtheta, dpsi, dp, dq, dr];
+    dp = (Iy-Iz)/Ix*r*q + u(2)/Ix;
+    dq = (Iz-Ix)/Iy*p*r + u(3)/Iy;
+    dr = (Ix-Iy)/Iz*p*q + u(4)/Iz;
+    sys = [vx,vy,vz,dvx, dvy, dvz,dphi, dtheta, dpsi, dp, dq, dr];
 
 % end mdlDerivatives
 

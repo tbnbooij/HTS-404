@@ -66,7 +66,7 @@ grid on
 % Main loop
 for i = 1:size(t,1)
     % Draw the current state of the quadcopter
-    drawquad(y(i,1), y(i,2), -y(i,3), y(i,7), y(i,8), y(i,9), p);
+    drawquad(y(i,1), y(i,2), y(i,3), y(i,7), y(i,8), y(i,9), p);
     % Wait a timestep
     refreshdata
     % Update title of plot

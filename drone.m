@@ -101,9 +101,6 @@ function [sys,x0,str,ts,simStateCompliance] = drone(t,x,u,flag, x0, m, g, Ix, Iy
 %
 switch flag
 
-  %some comment
-  a = 1;
-
   %%%%%%%%%%%%%%%%%%
   % Initialization %
   %%%%%%%%%%%%%%%%%%

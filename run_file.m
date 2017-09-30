@@ -32,8 +32,9 @@ figure('Name', 'Drone Simulation', 'NumberTitle', 'off'),clf;
 time = 1:size(t,1);
 % Set axis limits
 ax = axes('XLim',[-6 6],'YLim',[-6 6],'ZLim',[-6 6]);
-% Set viewpoint to default 3D viewpoint
-view(3);
+% Set viewpoint to convention
+view(52.5, 30+180);
+ax.CameraUpVector = [0 0 -1];
 % Set axis labels
 xlabel('x');
 ylabel('y');
@@ -47,17 +48,15 @@ ang = 0:0.01:2*pi;
 % Length of axes
 len = 0.5;
 % Description of axes
-h(1) = line([0 len],[0 len],[0 0]);
-h(2) = line([0 -len],[0 len], [0 0]);
-h(3) = line([0 len], [0 -len], [0 0]);
-h(4) = line([0 -len], [0 -len], [0 0]);
+h(1) = line([-len len],[-len len],[0 0]);
+h(2) = line([-len len],[len -len], [0 0]);
 % Description of circles
-h(5) = line('xData', len + r*cos(ang), 'yData', len + r*sin(ang), 'zData', ang*0);
-h(6) = line('xData', -len + r*cos(ang), 'yData', len + r*sin(ang), 'zData', ang*0);
-h(7) = line('xData', len + r*cos(ang), 'yData', -len + r*sin(ang), 'zData', ang*0);
-h(8) = line('xData', -len + r*cos(ang), 'yData', -len + r*sin(ang), 'zData', ang*0);
+h(3) = line('xData', len + r*cos(ang), 'yData', len + r*sin(ang), 'zData', ang*0);
+h(4) = line('xData', -len + r*cos(ang), 'yData', len + r*sin(ang), 'zData', ang*0);
+h(5) = line('xData', len + r*cos(ang), 'yData', -len + r*sin(ang), 'zData', ang*0);
+h(6) = line('xData', -len + r*cos(ang), 'yData', -len + r*sin(ang), 'zData', ang*0);
 % Create front line
-h(9) = line([len -len],[-len -len],[0 0]);
+h(7) = line([len len],[-len len],[0 0]);
 % Store this quadcopter in the object 'p'
 % 'p' can be transformed with respect to the defined axes
 p = hgtransform('Parent', ax);

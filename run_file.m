@@ -25,10 +25,10 @@ running_time = 10;
 x0 = [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0];
 
 % Initialization of the simulation
-[t,x,y] = sim('honors_drone',running_time,[]);
+[t,x,y] = sim('honors_drone_4d',running_time,[]);
 
 % Create a figure window and clear its current contents
-figure('Name', 'Drone Simulation', 'NumberTitle', 'off'),clf;
+figure('Name', 'Drone Simulation', 'NumberTitle', 'off', 'units','normalized','outerposition',[0 0 1 1]),clf;
 time = 1:size(t,1);
 % Set axis limits
 ax = axes('XLim',[-6 6],'YLim',[-6 6],'ZLim',[-6 6]);
@@ -63,6 +63,13 @@ p = hgtransform('Parent', ax);
 set(h, 'Parent', p);
 grid on
 
+% Video Setup
+myVideo = VideoWriter('4d.avi');
+myVideo.Quality = 100;
+myVideo.FrameRate = 25;
+open(myVideo);
+
+
 % Main loop
 for i = 1:size(t,1)
     % Draw the current state of the quadcopter
@@ -71,7 +78,11 @@ for i = 1:size(t,1)
     refreshdata
     % Update title of plot
     title(strcat(strcat('Quadcopter Simulation (', num2str(t(i))),' sec)'));
+    % Add frame to video
+    writeVideo(myVideo, getframe);
 end
+
+close(myVideo);
 
 % Show the plots
 showData(x,t);

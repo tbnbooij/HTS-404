@@ -80,8 +80,8 @@ showInput(input);
 % Draw the quadcopter in the figure according to the current state.
 function drawquad(x,y,z,phi,theta,psi, p)
 Mov = makehgtform('translate', x, y, z);
-rx = makehgtform('xrotate', -phi);
-ry = makehgtform('yrotate', -theta);
+rx = makehgtform('xrotate', phi);
+ry = makehgtform('yrotate', theta);
 rz = makehgtform('zrotate', psi);
 set(p, 'Matrix', Mov*rx*ry*rz);
 drawnow

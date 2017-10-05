@@ -16,16 +16,25 @@ g = 9.81;
 running_time = 10;
 
 % At t = 0; we add the following inputs
-% in.time = [0];
-% % These are the input values; u = [T, tau_x, tau_y, tau_z]
-% in.signals(1).values = [1*m*g, 0.001, 0,0];
-% % There are FOUR input values = # dimensions
-% in.signals(1).dimensions = 4;
+in.time = [0];
+% These are the input values; u = [T, tau_x, tau_y, tau_z]
+in.signals(1).values = [m*g,0,0,0];
+% There are FOUR input values = # dimensions
+in.signals(1).dimensions = 4;
 
 x0 = [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0];
 
 % Initialization of the simulation
-[t,x,y] = sim('honors_drone_4d',running_time,[]);
+% NOTE: In order to run one of the other simulations,
+% uncomment one of the lines below and comment out the initial
+% simulation (the line beneath this comment)
+[t,x,y] = sim('honors_drone',running_time,[],in);
+
+% [t,x,y] = sim('honors_drone_4a',running_time,[]);
+% [t,x,y] = sim('honors_drone_4b',running_time,[]);
+% [t,x,y] = sim('honors_drone_4c',running_time,[]);
+% [t,x,y] = sim('honors_drone_4d',running_time,[]);
+
 
 % Create a figure window and clear its current contents
 figure('Name', 'Drone Simulation', 'NumberTitle', 'off', 'units','normalized','outerposition',[0 0 1 1]),clf;
@@ -64,10 +73,14 @@ set(h, 'Parent', p);
 grid on
 
 % Video Setup
-myVideo = VideoWriter('4d.avi');
-myVideo.Quality = 100;
-myVideo.FrameRate = 25;
-open(myVideo);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Please keep these lines commented out   %
+% They generate a video of the simulation %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% myVideo = VideoWriter('4d.avi');
+% myVideo.Quality = 100;
+% myVideo.FrameRate = 25;
+% open(myVideo);
 
 
 % Main loop
@@ -79,10 +92,10 @@ for i = 1:size(t,1)
     % Update title of plot
     title(strcat(strcat('Quadcopter Simulation (', num2str(t(i))),' sec)'));
     % Add frame to video
-    writeVideo(myVideo, getframe);
+    % writeVideo(myVideo, getframe);
 end
 
-close(myVideo);
+% close(myVideo);
 
 % Show the plots
 showData(x,t);
